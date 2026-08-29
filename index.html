@@ -3,466 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Título atualizado -->
-  <title>Infofsl Downloads</title>
-  
-  <!-- Favicon de download simples (SVG azul) -->
+  <title>Central de Suporte | Infofsl Informática</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233b82f6' viewBox='0 0 256 256'%3E%3Cpath d='M222,152v56a14,14,0,0,1-14,14H48a14,14,0,0,1-14-14V152a6,6,0,0,1,12,0v56a2,2,0,0,0,2,2H208a2,2,0,0,0,2-2V152a6,6,0,0,1,12,0Zm-87.76,20.24a6,6,0,0,0,8.48,0l40-40a6,6,0,0,0-8.48-8.48L134,163.51V40a6,6,0,0,0-12,0V163.51l-40.24-39.75a6,6,0,0,0-8.48,8.48Z'/%3E%3C/svg%3E">
-  
-  <!-- Ícones Phosphor -->
+  <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
-  <style>
-    /* Carregando a fonte do seu repositório */
-    @font-face {
-      font-family: 'JetBrains Mono';
-      src: url('./JetBrainsMono-Light.ttf') format('truetype');
-      font-weight: 300;
-      font-style: normal;
-    }
-
-    /* Variáveis do Tema Escuro */
-    :root {
-      --bg-color: #0f172a;       
-      --card-bg: #1e293b;        
-      --text-main: #f8fafc;      
-      --text-muted: #94a3b8;     
-      --primary: #3b82f6;        
-      --primary-hover: #60a5fa;  
-      --border: #334155;         
-      --icon-green: #22c55e;     
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.5;
-      padding: 2rem 1rem;
-      /* Tamanho base da fonte um pouco menor */
-      font-size: 14px; 
-    }
-
-    .container {
-      max-width: 768px;
-      margin: 0 auto;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background-color: rgba(59, 130, 246, 0.2);
-      color: #bfdbfe;
-      padding: 0.4rem 0.8rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      margin-bottom: 1.2rem;
-      border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-
-    .badge i {
-      color: var(--icon-green);
-      font-size: 1rem;
-    }
-
-    h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      margin-bottom: 0.4rem;
-    }
-
-    header p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      font-weight: 300;
-    }
-
-    /* Acordeão (Details) */
-    .accordion-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    details {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-      transition: border-color 0.2s ease;
-    }
-
-    details:hover {
-      border-color: #475569;
-    }
-
-    summary {
-      padding: 1rem 1.25rem;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .summary-content {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .summary-title {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text-main);
-    }
-
-    .summary-subtitle {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-weight: 300;
-    }
-
-    .summary-icon {
-      color: var(--text-muted);
-      transition: transform 0.3s ease;
-      font-size: 1.1rem;
-    }
-
-    details[open] .summary-icon {
-      transform: rotate(180deg);
-      color: var(--primary);
-    }
-
-    /* Conteúdo do Acordeão */
-    .details-body {
-      padding: 0 1.25rem 1.25rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      border-top: 1px solid var(--border);
-      padding-top: 0.85rem;
-      margin-top: 0.25rem;
-    }
-
-    /* Botões de Download */
-    .download-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.85rem 1rem;
-      background-color: var(--bg-color);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text-main);
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .download-btn .btn-text {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .download-btn i {
-      font-size: 1.15rem;
-      color: var(--primary);
-    }
-
-    /* Estilo para o ícone personalizado (SVG do Mediafire) */
-    .custom-icon {
-      width: 1.15rem;
-      height: 1.15rem;
-      fill: var(--primary);
-      transition: fill 0.2s ease;
-    }
-
-    .download-btn:hover {
-      background-color: #1e293b;
-      border-color: var(--primary);
-      color: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-    
-    .download-btn:hover i {
-      color: var(--primary-hover);
-    }
-
-    .download-btn:hover .custom-icon {
-      fill: var(--primary-hover);
-    }
-
-    /* Footer & Contatos */
-    footer {
-      margin-top: 3.5rem;
-      text-align: center;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    footer span {
-      font-size: 0.85rem;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      align-items: center;
-      width: 100%;
-    }
-
-    .contact-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.85rem;
-      padding: 0.65rem 1.2rem;
-      border-radius: 9999px;
-      transition: all 0.2s;
-      width: 100%;
-      max-width: 280px;
-    }
-
-    .btn-primary {
-      color: #bfdbfe;
-      background: rgba(59, 130, 246, 0.2);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: rgba(59, 130, 246, 0.3);
-      color: #ffffff;
-    }
-
-    .btn-secondary {
-      color: var(--text-muted);
-      background: transparent;
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: var(--card-bg);
-      color: var(--text-main);
-      border-color: #475569;
-    }
-
-  </style>
 </head>
 <body>
-
   <div class="container">
     <header>
-      <div class="badge">
-        <i class="ph ph-shield-check"></i> Infofsl Informática
+      <div class="logo-animada">
+        <div class="badge">
+          <i class="ph ph-shield-check"></i> Infofsl Informática
+        </div>
       </div>
-      <!-- Título alterado aqui também -->
-      <h1>Infofsl Downloads</h1>
-      <p>Links de imagens ISO para Windows e Office</p>
+      <h1>Central de Suporte</h1>
+      <p>Selecione a categoria desejada abaixo</p>
     </header>
 
     <div class="accordion-group">
-      
-      <!-- OFFICE GOOGLE DRIVE -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <span class="summary-title">Microsoft Office </span>
-            <span class="summary-subtitle">Pro Plus | Standard · Google Drive</span>
+      <!-- Botão para página do Windows -->
+      <a href="windows.html" class="download-btn menu-principal">
+        <div class="btn-text">
+          <i class="ph ph-windows-logo" style="font-size: 1.5rem;"></i> 
+          <div>
+            <strong>Sistemas Windows</strong><br>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Windows 10 e Windows Server</span>
           </div>
-          <i class="ph ph-caret-down summary-icon"></i>
-        </summary>
-        <div class="details-body">
-          <a href="https://drive.google.com/file/d/1OukCqpoRxuauKW7nqp22MLQqvSjcWV-H/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Office 2013</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1yHXm2NTB9mwt2VyMbvcL0BOI-WuW7CPl/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Office 2016</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1lMMleXdEjXLE5RU0vSdh7lZHvONBxoGE/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Office 2019</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/15X6E4M-foVYEMEr4eEbi8G7wuNYmaC5n/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Office 2021</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1NIOId0ih9zPfL7DM4gDPnbCRBGNuXnM7/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Office 2024</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
         </div>
-      </details>
+        <i class="ph ph-caret-right"></i>
+      </a>
 
-      <!-- PROJECT & VISIO -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <span class="summary-title">Project &amp; Visio</span>
-            <span class="summary-subtitle">Pro | Standard · Google Drive</span>
+      <!-- Botão para página do Office -->
+      <a href="office.html" class="download-btn menu-principal">
+        <div class="btn-text">
+          <i class="ph ph-microsoft-excel-logo" style="font-size: 1.5rem;"></i> 
+          <div>
+            <strong>Microsoft Office</strong><br>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Office 2013 ao 2024, Project e Visio</span>
           </div>
-          <i class="ph ph-caret-down summary-icon"></i>
-        </summary>
-        <div class="details-body">
-          <a href="https://drive.google.com/file/d/1Y8ZL0E-JJ2F4AOL-AyI_Z_OKKM8xgbYU/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Project &amp; Visio 2019</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1v6aKfNcq2cv0LAv0SBGPOKyKHQj55sh-/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Project &amp; Visio 2021</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/12l87L6GBIvQ_9IcX0AU5o_bTMBaq1YaQ/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Project &amp; Visio 2024</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
         </div>
-      </details>
-
-      <!-- WINDOWS 10 LTSC -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <span class="summary-title">Windows 10 </span>
-            <span class="summary-subtitle">Education | Enterprise LTSC 2021 · Google Drive · OneDrive</span>
-          </div>
-          <i class="ph ph-caret-down summary-icon"></i>
-        </summary>
-        <div class="details-body">
-          <a href="https://drive.google.com/file/d/1qId5c2A0265JR1B-iQ1lcawj-siZ-SM0/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows 10 LTSC 2021 (x86) - Google Drive</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1AqyU9EoddrVcdZD5-4U2vqYEVEY9R1yS/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows 10 LTSC 2021 (x64) - Google Drive</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1--3q02z9Q7eotnywEYdlMfjFsh4hxFvd/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows 10 Education (x64) - Google Drive</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://1drv.ms/u/c/e7b5770efbf17c65/IQCPuhTW7AIITazYePXEHZoyAUVwWcuPyKq5ZxzzmVd3xlE?e=KjlnYm" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-cloud"></i> Windows 10 LTSC 2021 (x64) - OneDrive</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-        </div>
-      </details>
-
-      <!-- WINDOWS SERVER -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <span class="summary-title">Windows Server</span>
-            <span class="summary-subtitle">Essentials | Standard | Datacenter · Google Drive</span>
-          </div>
-          <i class="ph ph-caret-down summary-icon"></i>
-        </summary>
-        <div class="details-body">
-          <a href="https://drive.google.com/file/d/1LJ_Wm-mZyIm4hCjsE42ZXze20CDIy3P2/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows Server 2019 Essentials</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1emJLmY1puxdQ-VyNRp2E4pn_VLnfKL2Z/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows Server 2019 Standard &amp; Datacenter</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1NFzZ-G6aoUJWe9BsrsroMowHFm-Ss37P/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows Server 2022 Standard &amp; Datacenter</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://drive.google.com/file/d/1_ypwDXIYaNlwJiVfkNQymeYI0m0NiU1m/view?usp=sharing" target="_blank" class="download-btn">
-            <div class="btn-text"><i class="ph ph-google-drive-logo"></i> Windows Server 2025 Standard &amp; Datacenter</div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-        </div>
-      </details>
-
-      <!-- OFFICE MEDIAFIRE -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <span class="summary-title">Microsoft Office | Mediafire</span>
-            <span class="summary-subtitle">Pro Plus | Standard</span>
-          </div>
-          <i class="ph ph-caret-down summary-icon"></i>
-        </summary>
-        <div class="details-body">
-          <a href="https://www.mediafire.com/file/m6utfbmbw05f4pu/Microsoft+Office+2019+VL.iso/file" target="_blank" class="download-btn">
-            <div class="btn-text">
-              <svg class="custom-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.19 12.016L8.435 8.243 0 16.657h8.431zM15.541 4.793l-3.35 3.336 3.864 3.87 3.352-3.342zM15.541 12.002l-3.868 3.864 8.256 8.134H24zM8.441 16.657l3.861-3.86 3.239 3.243-3.239 3.239z"/>
-              </svg>
-              Office 2019
-            </div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://www.mediafire.com/file/b29u3lfn24qynfi/Microsoft+Office+2021+VL.iso/file" target="_blank" class="download-btn">
-            <div class="btn-text">
-              <svg class="custom-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.19 12.016L8.435 8.243 0 16.657h8.431zM15.541 4.793l-3.35 3.336 3.864 3.87 3.352-3.342zM15.541 12.002l-3.868 3.864 8.256 8.134H24zM8.441 16.657l3.861-3.86 3.239 3.243-3.239 3.239z"/>
-              </svg>
-              Office 2021
-            </div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-          <a href="https://www.mediafire.com/file/1vuwtzwtizv8clv/Microsoft+Office+2024+VL.iso/file" target="_blank" class="download-btn">
-            <div class="btn-text">
-              <svg class="custom-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.19 12.016L8.435 8.243 0 16.657h8.431zM15.541 4.793l-3.35 3.336 3.864 3.87 3.352-3.342zM15.541 12.002l-3.868 3.864 8.256 8.134H24zM8.441 16.657l3.861-3.86 3.239 3.243-3.239 3.239z"/>
-              </svg>
-              Office 2024
-            </div>
-            <i class="ph ph-download-simple"></i>
-          </a>
-        </div>
-      </details>
-
+        <i class="ph ph-caret-right"></i>
+      </a>
     </div>
 
     <footer>
       <span>Precisa de ajuda com a ativação ou instalação?</span>
-      
       <div class="contact-links">
         <a href="https://instagram.com/infofslpc" target="_blank" class="btn-primary">
-          <i class="ph ph-instagram-logo"></i>@infofslpc
+          <i class="ph ph-instagram-logo"></i> @infofslpc
         </a>
-        
+        <a href="mailto:infofslpc@proton.me" class="btn-secondary">
+          <i class="ph ph-envelope-simple"></i> infofslpc@proton.me
+        </a>
         <a href="https://linktr.ee/infofslpc" target="_blank" class="btn-secondary">
           <i class="ph ph-link"></i> Outros Contatos
         </a>
       </div>
     </footer>
   </div>
-
 </body>
 </html>
