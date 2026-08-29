@@ -9,7 +9,7 @@ Central de Suporte e Biblioteca oficial de Downloads.
 </p>
 
 <p align="center">
-  <a href="https://infofslpc.github.io/infofslpc-downloads/">🌐 Acessar o Site</a>
+  <a href="https://suporte.infofslpc.com.br/">🌐 Acessar o Site</a>
 </p>
 <p align="center">
   <a href="https://instagram.com/infofslpc">
