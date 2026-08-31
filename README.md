@@ -61,7 +61,7 @@ Todos os programas são organizados por categorias para facilitar a localizaçã
 
 **Site Oficial**
 
-https://suporte.infofslpc.com.br
+https://infofslpc.com.br
 
 
 ---
