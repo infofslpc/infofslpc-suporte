@@ -10,8 +10,12 @@
  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- EFEITO 1 E 2 -->
+  <div class="dot-bg"></div>
+  <div id="tsparticles"></div>
 
   <div class="container">
+    <!-- O resto do seu código continua normal aqui... -->
     <a href="index.html" class="btn-back"><i class="ph ph-arrow-left"></i> Voltar</a>
 
     <header>
@@ -119,8 +123,44 @@
           <i class="ph ph-link"></i> Outros Contatos
         </a>
       </div>
-    </footer>
+   </footer>
   </div>
 
+  <!-- SCRIPT 1: Atualiza a posição do Holofote -->
+  <script>
+    document.addEventListener('mousemove', (e) => {
+        const dotBg = document.querySelector('.dot-bg');
+        if (dotBg) {
+            dotBg.style.setProperty('--mouse-x', `${e.clientX}px`);
+            dotBg.style.setProperty('--mouse-y', `${e.clientY}px`);
+        }
+    });
+  </script>
+
+  <!-- SCRIPT 2: tsParticles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.3/tsparticles.bundle.min.js"></script>
+  <script>
+    tsParticles.load({
+        id: "tsparticles",
+        options: {
+            background: { color: { value: "transparent" } },
+            fpsLimit: 120,
+            interactivity: {
+                events: { onHover: { enable: true, mode: "grab" } },
+                modes: { grab: { distance: 250, links: { opacity: 0.8, color: "#00c4cc" } } },
+            },
+            particles: {
+                color: { value: "#00c4cc" },
+                links: { enable: false },
+                move: { enable: true, speed: 0.5, direction: "none", random: false, straight: false, outModes: { default: "bounce" } },
+                number: { value: 35, density: { enable: true } },
+                opacity: { value: 0.6 },
+                shape: { type: "circle" },
+                size: { value: { min: 1, max: 3 } },
+            },
+            detectRetina: true,
+        },
+    });
+  </script>
 </body>
 </html>
