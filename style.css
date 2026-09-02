@@ -117,3 +117,46 @@ footer { margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 1p
 
 .btn-secondary { color: var(--text-main); background: transparent; border: 1px solid var(--border); }
 .btn-secondary:hover { background: rgba(0, 196, 204, 0.1); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: var(--glow); }
+
+/* ========================================= */
+/* EFEITO 1: GRID DE PONTOS COM HOLOFOTE     */
+/* ========================================= */
+.dot-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; 
+    z-index: 0; 
+    
+    background-image: radial-gradient(rgba(0, 196, 204, 0.25) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    
+    -webkit-mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
+    mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
+}
+
+/* ========================================= */
+/* EFEITO 2: PARTÍCULAS INTERATIVAS (GRAB)   */
+/* ========================================= */
+#tsparticles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; 
+    pointer-events: auto; 
+}
+
+/* Garante que o conteúdo fique clicável acima dos efeitos */
+.container {
+    position: relative;
+    z-index: 10;
+}
+
+/* Esconde os efeitos no celular para poupar desempenho */
+@media (max-width: 768px) {
+    .dot-bg, #tsparticles { display: none; }
+}
