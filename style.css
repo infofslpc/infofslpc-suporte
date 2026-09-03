@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;700&display=swap');
 
 :root {
-  /* Paleta Oficial Infofsl - Dark Navy & Cyan */
   --bg-color: #0b0f19;       
   --card-bg: #151b2b;        
   --text-main: #e2e8f0;      
@@ -18,8 +17,8 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-main);
-  line-height: 1.6; /* Alterado de 1.5 para 1.6 para igualar a Landing Page */
-  font-size: 16px;  /* Aumentado de 15px para o padrão de 16px */
+  line-height: 1.6;
+  font-size: 16px;
   padding: 2rem 1rem;
 }
 
@@ -42,7 +41,6 @@ header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
 }
 .logo-animada { animation: float 3s ease-in-out infinite; display: inline-block; }
 
-/* Configuração da Logo Flutuante */
 .logo-img {
   width: 180px; 
   max-width: 100%;
@@ -65,6 +63,8 @@ details {
 }
 details:hover { border-color: var(--primary); box-shadow: var(--glow); }
 
+.summary-header { display: flex; align-items: center; gap: 15px; }
+
 summary {
   padding: 1.2rem 1.5rem; cursor: pointer; list-style: none;
   display: flex; justify-content: space-between; align-items: center;
@@ -76,7 +76,7 @@ summary::-webkit-details-marker { display: none; }
   font-size: 0.85rem; 
   color: var(--primary); 
   font-weight: 400; 
-  font-family: 'JetBrains Mono', monospace; /* Mantém a estética técnica nos subtítulos */
+  font-family: 'JetBrains Mono', monospace; 
 }
 .summary-icon { color: var(--primary); transition: transform 0.3s ease; font-size: 1.2rem; }
 details[open] .summary-icon { transform: rotate(180deg); }
@@ -93,9 +93,16 @@ details[open] .summary-icon { transform: rotate(180deg); }
   transition: all 0.3s ease;
 }
 .download-btn.menu-principal { padding: 1.5rem; background-color: var(--card-bg); border-radius: 12px; }
-.download-btn .btn-text { display: flex; align-items: center; gap: 0.8rem; }
+.download-btn .btn-text { display: flex; align-items: center; gap: 1rem; }
 .download-btn i { font-size: 1.3rem; color: var(--primary); }
-.custom-icon { width: 1.3rem; height: 1.3rem; fill: var(--primary); transition: fill 0.3s ease; }
+
+/* CONTROLE DOS SVGS */
+.svg-brand { width: 38px; height: 38px; flex-shrink: 0; transition: transform 0.3s ease; }
+.svg-brand.office-scale { transform: scale(1.4); }
+
+/* Estilo para múltiplos ícones lado a lado (Project & Visio) */
+.svg-duo { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.svg-duo svg { height: 28px; width: auto; transition: transform 0.3s ease; }
 
 .download-btn:hover { 
   background-color: var(--card-bg); 
@@ -106,11 +113,15 @@ details[open] .summary-icon { transform: rotate(180deg); }
 }
 .download-btn.menu-principal:hover { transform: translateY(-4px); box-shadow: 0 4px 15px rgba(0, 196, 204, 0.2); }
 .download-btn:hover i { color: var(--primary-hover); text-shadow: var(--glow); }
-.download-btn:hover .custom-icon { fill: var(--primary-hover); }
+.download-btn:hover .svg-brand { transform: scale(1.1); }
+.download-btn:hover .svg-brand.office-scale { transform: scale(1.55); }
+.download-btn:hover .svg-duo svg { transform: scale(1.1); }
+
+.cloud-svg { width: 1.3rem; height: 1.3rem; flex-shrink: 0; }
 
 footer { margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
 .contact-links { display: flex; flex-direction: column; gap: 0.8rem; align-items: center; width: 100%; }
-.contact-links a { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.8rem 1.5rem; border-radius: 9999px; transition: all 0.3s; width: 100%; max-width: 300px; }
+.contact-links a { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.8rem 1.5rem; border-radius: 9999px; transition: all 0.3s; width: 100%; max-width: 350px; }
 
 .btn-primary { color: var(--bg-color); background: var(--primary); border: 1px solid var(--primary); box-shadow: 0 0 10px rgba(0, 196, 204, 0.2); }
 .btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: var(--bg-color); box-shadow: var(--glow); transform: translateY(-2px); }
@@ -118,45 +129,8 @@ footer { margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 1p
 .btn-secondary { color: var(--text-main); background: transparent; border: 1px solid var(--border); }
 .btn-secondary:hover { background: rgba(0, 196, 204, 0.1); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: var(--glow); }
 
-/* ========================================= */
-/* EFEITO 1: GRID DE PONTOS COM HOLOFOTE     */
-/* ========================================= */
-.dot-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; 
-    z-index: 0; 
-    
-    background-image: radial-gradient(rgba(0, 196, 204, 0.25) 1.5px, transparent 1.5px);
-    background-size: 30px 30px;
-    
-    -webkit-mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
-    mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
-}
+.dot-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; background-image: radial-gradient(rgba(0, 196, 204, 0.25) 1.5px, transparent 1.5px); background-size: 30px 30px; -webkit-mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%); mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%); }
+#tsparticles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: auto; }
+.container { position: relative; z-index: 10; }
 
-/* ========================================= */
-/* EFEITO 2: PARTÍCULAS INTERATIVAS (GRAB)   */
-/* ========================================= */
-#tsparticles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1; 
-    pointer-events: auto; 
-}
-
-/* Garante que o conteúdo fique clicável acima dos efeitos */
-.container {
-    position: relative;
-    z-index: 10;
-}
-
-/* Esconde os efeitos no celular para poupar desempenho */
-@media (max-width: 768px) {
-    .dot-bg, #tsparticles { display: none; }
-}
+@media (max-width: 768px) { .dot-bg, #tsparticles { display: none; } }
