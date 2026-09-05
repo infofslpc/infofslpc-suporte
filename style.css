@@ -27,10 +27,10 @@ body {
 .btn-back {
   position: absolute; top: 0; left: 0; display: inline-flex;
   align-items: center; gap: 0.5rem; color: var(--text-muted);
-  text-decoration: none; font-size: 0.9rem; transition: color 0.2s;
-  font-weight: 500;
+  text-decoration: none; font-size: 0.9rem; transition: color 0.2s, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.3s ease;
+  font-weight: 500; will-change: transform;
 }
-.btn-back:hover { color: var(--primary); text-shadow: var(--glow); }
+.btn-back:hover { color: var(--primary); text-shadow: var(--glow); transform: scale(1.12); }
 
 header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
 
@@ -39,7 +39,7 @@ header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0px); }
 }
-.logo-animada { animation: float 3s ease-in-out infinite; display: inline-block; }
+.logo-animada { animation: float 6s ease-in-out infinite; display: inline-block; }
 
 .logo-img {
   width: 180px; 
@@ -52,7 +52,7 @@ header { text-align: center; margin-bottom: 3rem; padding-top: 2rem; }
 h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
 header p { color: var(--text-muted); font-size: 1rem; font-weight: 400; }
 
-.accordion-group { display: flex; flex-direction: column; gap: 1rem; }
+.accordion-group { display: flex; flex-direction: column; gap: 1.2rem; }
 
 details {
   background-color: var(--card-bg); 
@@ -90,7 +90,8 @@ details[open] .summary-icon { transform: rotate(180deg); }
   display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem;
   background-color: rgba(11, 15, 25, 0.5); border: 1px solid var(--border); border-radius: 8px;
   text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 500;
-  transition: all 0.3s ease;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+  will-change: transform;
 }
 .download-btn.menu-principal { padding: 1.5rem; background-color: var(--card-bg); border-radius: 12px; }
 .download-btn .btn-text { display: flex; align-items: center; gap: 1rem; }
@@ -121,16 +122,44 @@ details[open] .summary-icon { transform: rotate(180deg); }
 
 footer { margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
 .contact-links { display: flex; flex-direction: column; gap: 0.8rem; align-items: center; width: 100%; }
-.contact-links a { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.8rem 1.5rem; border-radius: 9999px; transition: all 0.3s; width: 100%; max-width: 350px; }
+.contact-links a { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; font-weight: 600; font-size: 0.95rem; padding: 0.8rem 1.5rem; border-radius: 9999px; transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease; width: 100%; max-width: 350px; will-change: transform; }
 
 .btn-primary { color: var(--bg-color); background: var(--primary); border: 1px solid var(--primary); box-shadow: 0 0 10px rgba(0, 196, 204, 0.2); }
-.btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: var(--bg-color); box-shadow: var(--glow); transform: translateY(-2px); }
+.btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: var(--bg-color); box-shadow: var(--glow); transform: translateY(-2px) scale(1.06); }
 
 .btn-secondary { color: var(--text-main); background: transparent; border: 1px solid var(--border); }
-.btn-secondary:hover { background: rgba(0, 196, 204, 0.1); border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: var(--glow); }
+.btn-secondary:hover { background: rgba(0, 196, 204, 0.1); border-color: var(--primary); color: var(--primary); transform: translateY(-2px) scale(1.06); box-shadow: var(--glow); }
+
+/* ===== EFEITOS DE AMPLIAÇÃO (desktop only, sem reflow que deslocava o footer) ===== */
+.accordion-group .download-btn.menu-principal,
+.accordion-group details,
+.details-body .download-btn,
+.contact-links a { will-change: transform; }
+
+@media (hover: hover) and (pointer: fine) {
+  /* Index: 2 botões principais (Windows/Office) - só hover, mesmo padrão dos blocos internos (sem shrink) */
+  .accordion-group .download-btn.menu-principal:hover { transform: scale(1.03); z-index: 1; }
+
+  /* Windows/Office: cards <details> - só hover, sem encolher irmãos (evita tremida entre blocos) */
+  .accordion-group details { transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, filter 0.3s ease; }
+  .accordion-group details:hover { transform: scale(1.02); z-index: 1; }
+
+  /* Dentro de cada details: botões de download - só hover, sem encolher irmãos */
+  .details-body .download-btn:hover { transform: scale(1.03); z-index: 1; }
+
+  /* Footer: 4 botões de contato - só hover, sem shrink dos irmãos (evita tremida) */
+  .contact-links a:hover { transform: scale(1.06); z-index: 1; }
+
+  @supports not selector(:has(*)) {}
+}
 
 .dot-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; background-image: radial-gradient(rgba(0, 196, 204, 0.25) 1.5px, transparent 1.5px); background-size: 30px 30px; -webkit-mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%); mask-image: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%); }
 #tsparticles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: auto; }
 .container { position: relative; z-index: 10; }
 
-@media (max-width: 768px) { .dot-bg, #tsparticles { display: none; } }
+@media (max-width: 768px) {
+  .dot-bg, #tsparticles { display: none; }
+  .logo-animada { animation: none !important; }
+  .accordion-group details, .download-btn, .contact-links a { transition: none !important; will-change: auto !important; filter: none !important; }
+  html { scroll-behavior: auto !important; }
+}
